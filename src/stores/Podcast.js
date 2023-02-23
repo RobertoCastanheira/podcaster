@@ -33,9 +33,10 @@ export const fetchPodcast = async (podcastId) => {
   console.log({ podcastData });
 
   const details = {
+    id: podcastData.collectionId,
     title: podcastData.collectionName,
     author: podcastData.artistName,
-    image: podcastData.artistViewUrl,
+    image: podcastData.artworkUrl600,
     // TODO: description
     description: "",
     episodesCount: podcastData.trackCount,
