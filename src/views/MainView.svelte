@@ -18,7 +18,7 @@
 </script>
 
 <HeaderLayout loading={loading}>
-  <div class="podcasts">
+  <div class="podcasts container">
     {#each podcasts as podcast}
       <PodcastThumbnail {podcast} />
     {/each}

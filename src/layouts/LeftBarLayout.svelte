@@ -6,6 +6,15 @@
 </script>
 
 <HeaderLayout {loading}>
-  <LeftBar />
-  <slot />
+  <div class="container">
+    <LeftBar />
+    <slot />
+  </div>
 </HeaderLayout>
+
+<style>
+  .container {
+    display: flex;
+    margin-top: 2rem;
+  }
+</style>
