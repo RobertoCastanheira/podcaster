@@ -6,7 +6,7 @@ This template should help get you started developing with Svelte in Vite.
 
 To get started, clone this repository and install the dependencies:
 
-`git clone https://github.com/RobertoCastanheira/podcaster`
+`git clone https://github.com/RobertoCastanheira/podcaster.git`
 `cd podcaster`
 `npm install`
 
