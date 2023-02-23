@@ -20,7 +20,7 @@
 </script>
 
 <LeftBarLayout {loading}>
-  <div class="card">   
+  <div class="card" aria-busy={loading}>   
     <div class="header shadow"> 
       <p>Episodes: {podcastDetails?.episodesCount}</p>
     </div>

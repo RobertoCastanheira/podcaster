@@ -7,7 +7,7 @@
 
 <HeaderLayout {loading}>
   <div class="container">
-    <LeftBar />
+    <LeftBar {loading} />
     <slot />
   </div>
 </HeaderLayout>
