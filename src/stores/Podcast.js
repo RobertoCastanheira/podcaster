@@ -1,6 +1,11 @@
 import { writable } from "svelte/store";
 import fetch from "cross-fetch";
 import dayjs from "dayjs";
+import {
+  checkIfExpired,
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from "../utils/localStorage";
 
 export const podcast = writable({});
 
@@ -8,7 +13,7 @@ const JSONP_URL = "https://cors-anywhere.herokuapp.com/";
 
 const URL = JSONP_URL + "https://itunes.apple.com/lookup?id=";
 
-export const fetchPodcast = async (podcastId) => {
+const fetchAndStore = async (podcastId, STORAGE_KEY) => {
   const response = await fetch(`${URL}${podcastId}`);
   const data = await response.json();
   const podcastData = data.results[0];
@@ -30,8 +35,6 @@ export const fetchPodcast = async (podcastId) => {
     //TODO: duration:
   }));
 
-  console.log({ podcastData });
-
   const details = {
     id: podcastData.collectionId,
     title: podcastData.collectionName,
@@ -43,5 +46,22 @@ export const fetchPodcast = async (podcastId) => {
     episodeList: parsedEpisodeData,
   };
 
+  saveToLocalStorage(STORAGE_KEY, details);
   podcast.set(details);
+};
+
+const getFromStorage = (STORAGE_KEY) => {
+  podcast.set(getFromLocalStorage(STORAGE_KEY));
+};
+
+export const fetchPodcast = async (podcastId) => {
+  const STORAGE_KEY = `podcast-${podcastId}`;
+
+  const storageIsExpired = checkIfExpired(STORAGE_KEY);
+
+  if (storageIsExpired) {
+    await fetchAndStore(podcastId, STORAGE_KEY);
+  } else {
+    getFromStorage(STORAGE_KEY);
+  }
 };
