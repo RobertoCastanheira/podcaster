@@ -5,5 +5,5 @@
 </script>
 
 <LeftBarLayout>
-  <p>Episode details</p>
+  (episode details)
 </LeftBarLayout>
