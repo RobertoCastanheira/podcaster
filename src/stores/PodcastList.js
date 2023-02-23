@@ -10,7 +10,7 @@ export const fetchPodcasts = async () => {
   const response = await fetch(URL);
   const data = await response.json();
   const podcastData = data.feed.entry;
-  console.log(podcastData);
+
   const parsedPodcasts = podcastData.map((podcast) => ({
     id: podcast.id.attributes["im:id"],
     name: podcast["im:name"].label,
