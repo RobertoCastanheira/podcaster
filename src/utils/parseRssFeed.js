@@ -1,4 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
+import fetch from "cross-fetch";
 
 const parseRssFeed = async (feedUrl) => {
   const response = await fetch(feedUrl);

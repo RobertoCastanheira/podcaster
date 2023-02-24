@@ -16,8 +16,7 @@ export const getFromLocalStorage = (key) => {
 };
 
 export const checkIfExpired = (key) => {
-  const value = getFromLocalStorage(key);
-
+  const value = JSON.parse(localStorage.getItem(key));
   if (!value) return true;
 
   const now = dayjs();
