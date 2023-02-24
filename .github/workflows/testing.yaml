@@ -21,7 +21,7 @@ jobs:
       run: npm run jest-run
 
     - name: Run E2E tests
-      uses: cypress-io/github-action@v5.2.0
+      uses: cypress-io/github-action@v5.0.0
       with:
         browser: chrome
         build: npm run build
