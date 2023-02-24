@@ -28,7 +28,7 @@
 </script>
 
 <HeaderLayout loading={loading}>
-  <div class="search">
+  <div class="search container">
     <div id="podcast-count" class="count">{filteredPodCasts.length}</div>
     <input id="podcast-search" type="text" placeholder="Filter podcasts..." on:input={filterPodcasts}>
   </div>
@@ -44,7 +44,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 3rem;
+    margin-top: 2rem;
   }
 
   input {
@@ -62,6 +62,7 @@
   }
   .podcasts {
     width: 100%;
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
     margin-top: 2rem;
