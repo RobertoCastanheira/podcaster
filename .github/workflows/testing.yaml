@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install dependencies
       run: npm install 
@@ -25,7 +25,7 @@ jobs:
       with:
         browser: chrome
         build: npm run build
-        start: npm preview
+        start: npm run preview
 
     - name: Check test status
       run: |
