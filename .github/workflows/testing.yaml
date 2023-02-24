@@ -21,7 +21,13 @@ jobs:
       run: npm run jest-run
 
     - name: Run E2E tests
-      run: npm run run-and-test
+      uses: cypress-io/github-action@v3
+      with:
+        project: .
+        browser: chrome
+        build: npm run build
+        start: npm run preview
+        wait-on: "http://localhost:4173/"
 
     - name: Check test status
       run: |
