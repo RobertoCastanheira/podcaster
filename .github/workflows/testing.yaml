@@ -31,7 +31,3 @@ jobs:
         fi
       env:
         test_result: ${{ toJson(steps.test.outputs.test_result) }}
-
-outputs:
-  test_result:
-    description: The result of the test command
