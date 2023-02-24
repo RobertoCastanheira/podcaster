@@ -23,3 +23,16 @@ To build your app for production, run:
 To start the production server:
 
 `npm run preview`
+
+To run E2E tests:
+(on the browser)
+
+`npm run cypress-open`
+
+(on the CLI)
+
+`npm run cypress-run`
+
+To run Unit tests:
+
+`npm run jest-run`
