@@ -4,8 +4,8 @@
 </script>
 
 <header class="container">
-  <Link to="/">Podcaster</Link>
-  <span aria-busy={loading} />
+  <Link to="/" class="logo">Podcaster</Link>
+  <span class="header-loading" aria-busy={loading} />
 </header>
 
 <style>

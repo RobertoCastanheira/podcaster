@@ -4,7 +4,7 @@
   import { podcast } from "../stores/Podcast";
 
   export let loading;
-  
+
   let podcastDetails;
 
   onMount(() => {
@@ -16,21 +16,25 @@
 
 <div class="left-bar" aria-busy={loading}>
   <div class="card">
-    <Link to={`/podcast/${podcastDetails?.id}`}>
-      <img src={podcastDetails?.image} alt={podcastDetails?.title} />
-    </Link>
-    <hr />
-    <Link to={`/podcast/${podcastDetails?.id}`}>
-      <h3>{podcastDetails?.title}</h3>
-    </Link>
-    <p>
-      <i>by</i>: <Link to={`/podcast/${podcastDetails?.id}`}
-        >{podcastDetails?.author}</Link
-      >
-    </p>
-    <hr />
-    <p>Description:</p>
-    <div class="parsed-html">{@html podcastDetails?.description}</div>
+    {#if !loading}
+      <Link to={`/podcast/${podcastDetails?.id}`}>
+        <img src={podcastDetails?.image} alt={podcastDetails?.title} />
+      </Link>
+      <hr />
+      <Link to={`/podcast/${podcastDetails?.id}`}>
+        <h3 class="left-bar-podcast-name">{podcastDetails?.title}</h3>
+      </Link>
+      <p>
+        <i>by</i>: <Link to={`/podcast/${podcastDetails?.id}`}>
+          <span class="left-bar-podcast-author">{podcastDetails?.author}</span>
+        </Link>
+      </p>
+      <hr />
+      <p>Description:</p>
+      <div class="parsed-html">{@html podcastDetails?.description}</div>
+    {:else}
+      <div class="loading">Loading...</div>
+    {/if}
   </div>
 </div>
 
@@ -63,6 +67,6 @@
   .parsed-html :global(p) {
     font-size: 0.8rem;
     font-style: italic;
-    margin-bottom: .2rem;
+    margin-bottom: 0.2rem;
   }
 </style>

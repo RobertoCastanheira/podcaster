@@ -29,10 +29,10 @@
 
 <HeaderLayout loading={loading}>
   <div class="search">
-    <div class="count">{filteredPodCasts.length}</div>
-    <input type="text" placeholder="Filter podcasts..." on:input={filterPodcasts}>
+    <div id="podcast-count" class="count">{filteredPodCasts.length}</div>
+    <input id="podcast-search" type="text" placeholder="Filter podcasts..." on:input={filterPodcasts}>
   </div>
-  <div class="podcasts container">
+  <div class="podcasts container" id="podcast-container">
     {#each filteredPodCasts as podcast}
       <PodcastThumbnail {podcast} />
     {/each}

@@ -4,12 +4,12 @@
   export let podcast;
 </script>
 
-<Link to="/podcast/{podcast.id}">
+<Link to="/podcast/{podcast.id}" class="podcast-thumbnail">
   <card>
     <img src={podcast.image} alt={podcast.name} />
     <div class="shadow">
-      <p class="name">{podcast.name}</p>
-      <span class="author">Author: {podcast.author}</span>
+      <p class="podcast-name">{podcast.name}</p>
+      <span class="author">Author: <span class="podcast-author">{podcast.author}</span></span>
     </div>
   </card>
 </Link>
@@ -41,7 +41,7 @@
     width: 100%;
   }
 
-  .name {
+  .podcast-name {
     font-size: .8rem;
     margin-bottom: .1rem;
     color: hsl(205deg, 16%, 77%);
