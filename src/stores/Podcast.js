@@ -7,6 +7,7 @@ import {
   getFromLocalStorage,
   saveToLocalStorage,
 } from "../utils/localStorage";
+import { parseDescriptionFromFeed } from "../utils/parseRssFeed";
 
 dayjs.extend(duration);
 
@@ -40,13 +41,16 @@ const fetchAndStore = async (podcastId, STORAGE_KEY) => {
     duration: dayjs.duration(episode.trackTimeMillis).asMinutes().toFixed(2),
   }));
 
+  const podcastDescription = await parseDescriptionFromFeed(
+    podcastData?.feedUrl
+  );
+
   const details = {
     id: podcastData.collectionId,
     title: podcastData.collectionName,
     author: podcastData.artistName,
     image: podcastData.artworkUrl600,
-    // TODO: description
-    description: "",
+    description: podcastDescription ?? "",
     episodesCount: podcastData.trackCount,
     episodeList: parsedEpisodeData,
   };

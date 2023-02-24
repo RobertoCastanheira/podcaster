@@ -30,13 +30,13 @@
     </p>
     <hr />
     <p>Description:</p>
-    <p>{podcastDetails?.description}</p>
+    <div class="parsed-html">{@html podcastDetails?.description}</div>
   </div>
 </div>
 
 <style>
   .left-bar {
-    min-width: 12rem;
+    width: 12rem;
   }
 
   .card {
@@ -58,5 +58,11 @@
 
   p {
     font-size: 0.8rem;
+  }
+
+  .parsed-html :global(p) {
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-bottom: .2rem;
   }
 </style>
