@@ -1,0 +1,37 @@
+name: Run tests on push
+
+on: 
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run E2E tests
+      run: npm run cypress-run 
+
+    - name: Run unit tests
+      run: npm run jest-run
+
+    - name: Check test status
+      run: |
+        if [ ${{ steps.test.outputs.test_result }} == "failed" ]; then
+          echo "Tests failed"
+          exit 1
+        fi
+      env:
+        test_result: ${{ toJson(steps.test.outputs.test_result) }}
+
+outputs:
+  test_result:
+    description: The result of the test command
