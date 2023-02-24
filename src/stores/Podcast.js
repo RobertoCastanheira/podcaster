@@ -1,11 +1,14 @@
 import { writable } from "svelte/store";
 import fetch from "cross-fetch";
 import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
 import {
   checkIfExpired,
   getFromLocalStorage,
   saveToLocalStorage,
 } from "../utils/localStorage";
+
+dayjs.extend(duration);
 
 export const podcast = writable({});
 
@@ -30,9 +33,11 @@ const fetchAndStore = async (podcastId, STORAGE_KEY) => {
     id: episode.trackId,
     title: episode.trackName,
     description: episode.description,
-    episodeUrl: `${URL}${podcastData.collectionId}&entity=podcastEpisode&attribute=assetURL`,
+    episodeUrl: episode.episodeUrl,
     date: dayjs(episode.releaseDate).format("DD/MM/YYYY"),
-    //TODO: duration:
+    contentType: episode.episodeContentType,
+    fileExtension: episode.episodeFileExtension,
+    duration: dayjs.duration(episode.trackTimeMillis).asMinutes().toFixed(2),
   }));
 
   const details = {

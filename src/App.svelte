@@ -11,6 +11,3 @@
   <Route path="/podcast/:podcastId" component="{PodcastDetailsView}" />
   <Route path="/" component="{MainView}" />
 </Router>
-
-<style>
-</style>

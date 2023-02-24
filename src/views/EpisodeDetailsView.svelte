@@ -27,7 +27,7 @@
     <h1>{podcastDetails?.title}</h1>
     <p>{@html episodeDetails?.description}</p>
     <audio class="audio" controls>
-      <source src={episodeDetails?.episodeUrl} type="audio/mp3">
+      <source src={episodeDetails?.episodeUrl} type="{episodeDetails?.contentType}/{episodeDetails?.fileExtension}">
     </audio>
   </div>
 </LeftBarLayout>
