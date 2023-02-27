@@ -12,6 +12,10 @@ cd podcaster
 npm install
 ```
 
+Enable the service to access external resources:
+
+Visit https://cors-anywhere.herokuapp.com/corsdemo and click on "Request temporary access to the demo server".
+
 You can then start the development server:
 
 `npm run dev`
