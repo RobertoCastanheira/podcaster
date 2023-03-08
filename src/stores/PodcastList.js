@@ -16,30 +16,21 @@ const URL =
   "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json";
 
 const fetchAndStore = async () => {
-  try {
-    isLoading.set(true);
-    hasError.set(false);
-    const response = await fetch(URL);
-    const data = await response.json();
-    const podcastData = data.feed.entry;
+  const response = await fetch(URL);
+  const data = await response.json();
+  const podcastData = data.feed.entry;
 
-    const parsedPodcasts = podcastData.map((podcast) => ({
-      id: podcast.id.attributes["im:id"],
-      name: podcast["im:name"].label,
-      author: podcast["im:artist"].label,
-      image: podcast["im:image"][2].label,
-      url: podcast.link.attributes.href,
-      description: podcast.summary,
-    }));
+  const parsedPodcasts = podcastData.map((podcast) => ({
+    id: podcast.id.attributes["im:id"],
+    name: podcast["im:name"].label,
+    author: podcast["im:artist"].label,
+    image: podcast["im:image"][2].label,
+    url: podcast.link.attributes.href,
+    description: podcast.summary,
+  }));
 
-    saveToLocalStorage(STORAGE_KEY, parsedPodcasts);
-    podcastList.set(parsedPodcasts);
-  } catch (error) {
-    hasError.set(true);
-    console.error(error);
-  } finally {
-    isLoading.set(false);
-  }
+  saveToLocalStorage(STORAGE_KEY, parsedPodcasts);
+  podcastList.set(parsedPodcasts);
 };
 
 const getFromStorage = () => {
@@ -47,11 +38,21 @@ const getFromStorage = () => {
 };
 
 export const fetchPodcasts = async () => {
-  const storageIsExpired = checkIfExpired(STORAGE_KEY);
+  try {
+    isLoading.set(true);
+    hasError.set(false);
 
-  if (storageIsExpired) {
-    await fetchAndStore();
-  } else {
-    getFromStorage();
+    const storageIsExpired = checkIfExpired(STORAGE_KEY);
+
+    if (storageIsExpired) {
+      await fetchAndStore();
+    } else {
+      getFromStorage();
+    }
+  } catch (error) {
+    hasError.set(true);
+    console.error(error);
+  } finally {
+    isLoading.set(false);
   }
 };
