@@ -17,4 +17,12 @@ describe("Header", () => {
       cy.get(".header-loading").should("have.attr", "aria-busy", "false");
     });
   });
+
+  it("redirects home when clicking on the logo", () => {
+    cy.get(".logo").should("exist");
+
+    cy.get(".logo").click();
+
+    cy.url().should("eq", Cypress.config().baseUrl + "/");
+  });
 });
