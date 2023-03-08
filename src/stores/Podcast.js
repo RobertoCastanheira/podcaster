@@ -2,6 +2,8 @@ import { writable } from "svelte/store";
 import fetch from "cross-fetch";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import { isLoading } from "./LoadingStore";
+import { hasError } from "./ErrorStore";
 import {
   checkIfExpired,
   getFromLocalStorage,
@@ -64,13 +66,23 @@ const getFromStorage = (STORAGE_KEY) => {
 };
 
 export const fetchPodcast = async (podcastId) => {
-  const STORAGE_KEY = `podcast-${podcastId}`;
+  try {
+    isLoading.set(true);
+    hasError.set(false);
 
-  const storageIsExpired = checkIfExpired(STORAGE_KEY);
+    const STORAGE_KEY = `podcast-${podcastId}`;
 
-  if (storageIsExpired) {
-    await fetchAndStore(podcastId, STORAGE_KEY);
-  } else {
-    getFromStorage(STORAGE_KEY);
+    const storageIsExpired = checkIfExpired(STORAGE_KEY);
+
+    if (storageIsExpired) {
+      await fetchAndStore(podcastId, STORAGE_KEY);
+    } else {
+      getFromStorage(STORAGE_KEY);
+    }
+  } catch (error) {
+    hasError.set(true);
+    console.error(error);
+  } finally {
+    isLoading.set(false);
   }
 };

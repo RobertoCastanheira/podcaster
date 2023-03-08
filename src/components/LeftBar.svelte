@@ -2,8 +2,7 @@
   import { onMount } from "svelte";
   import { Link } from "svelte-routing";
   import { podcast } from "../stores/Podcast";
-
-  export let loading;
+  import { isLoading } from "../stores/LoadingStore";
 
   let podcastDetails;
 
@@ -14,9 +13,9 @@
   });
 </script>
 
-<div class="left-bar" aria-busy={loading}>
+<div class="left-bar" aria-busy={$isLoading}>
   <div class="card">
-    {#if !loading}
+    {#if !$isLoading}
       <Link to={`/podcast/${podcastDetails?.id}`}>
         <img src={podcastDetails?.image} alt={podcastDetails?.title} />
       </Link>

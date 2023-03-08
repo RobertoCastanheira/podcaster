@@ -3,23 +3,22 @@
   import { Link } from "svelte-routing";
   import LeftBarLayout from "../layouts/LeftBarLayout.svelte";
   import { fetchPodcast, podcast } from "../stores/Podcast";
+  import { isLoading } from "../stores/LoadingStore";
 
   export let podcastId;
   let podcastDetails = {};
-  let loading = true;
 
   onMount(async () => {
     await fetchPodcast(podcastId);
     podcast.subscribe((value) => {
       podcastDetails = value;
-      loading = false;
     });
   });
 </script>
 
-<LeftBarLayout {loading}>
-  <div class="card" aria-busy={loading}>
-    {#if !loading}
+<LeftBarLayout>
+  <div class="card" aria-busy={$isLoading}>
+    {#if !$isLoading}
       <div class="podcast-header shadow">
         <p>
           Episodes: <span class="episode-count"

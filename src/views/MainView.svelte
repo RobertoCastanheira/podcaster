@@ -5,15 +5,12 @@
   import PodcastThumbnail from "../components/PodcastThumbnail.svelte";
 
   let podcasts = [];
-  let loading;
   $: filteredPodCasts = podcasts;
 
   onMount(async () => {
-    loading = true;
     await fetchPodcasts();
     podcastList.subscribe((value) => {
       podcasts = value;
-      loading = false;
     });
   });
 
@@ -27,7 +24,7 @@
   }
 </script>
 
-<HeaderLayout loading={loading}>
+<HeaderLayout>
   <div class="search container">
     <div id="podcast-count" class="count">{filteredPodCasts.length}</div>
     <input id="podcast-search" type="text" placeholder="Filter podcasts..." on:input={filterPodcasts}>

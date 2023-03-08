@@ -2,11 +2,11 @@
   import { onMount } from "svelte";
   import LeftBarLayout from "../layouts/LeftBarLayout.svelte";
   import { fetchPodcast, podcast } from "../stores/Podcast";
+  import { isLoading } from "../stores/LoadingStore";
 
   export let podcastId;
   export let episodeId;
 
-  let loading = true;
   let podcastDetails = {};
   let episodeDetails = {};
 
@@ -14,7 +14,6 @@
     await fetchPodcast(podcastId);
     podcast.subscribe((value) => {
       podcastDetails = value;
-      loading = false;
     });
   });
 
@@ -23,9 +22,9 @@
   )[0];
 </script>
 
-<LeftBarLayout {loading}>
-  <div class="card shadow" aria-busy={loading}>
-    {#if !loading}
+<LeftBarLayout>
+  <div class="card shadow" aria-busy={$isLoading}>
+    {#if !$isLoading}
       <h1 class="episode-detail-title">{podcastDetails?.title}</h1>
       <p class="episode-detail-description">
         {@html episodeDetails?.description}

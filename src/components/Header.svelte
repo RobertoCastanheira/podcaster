@@ -1,11 +1,11 @@
 <script>
   import { Link } from "svelte-routing";
-  export let loading = false;
+  import { isLoading } from "../stores/LoadingStore";
 </script>
 
 <header class="container">
   <Link to="/" class="logo">Podcaster</Link>
-  <span class="header-loading" aria-busy={loading} />
+  <span class="header-loading" aria-busy={$isLoading} />
 </header>
 
 <style>
