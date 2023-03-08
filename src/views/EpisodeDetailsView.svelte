@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
   import LeftBarLayout from "../layouts/LeftBarLayout.svelte";
   import { fetchPodcast, podcast } from "../stores/Podcast";
-  import { isLoading } from "../stores/LoadingStore";
 
   export let podcastId;
   export let episodeId;
@@ -23,21 +22,17 @@
 </script>
 
 <LeftBarLayout>
-  <div class="card shadow" aria-busy={$isLoading}>
-    {#if !$isLoading}
-      <h1 class="episode-detail-title">{podcastDetails?.title}</h1>
-      <p class="episode-detail-description">
-        {@html episodeDetails?.description}
-      </p>
-      <audio class="audio" controls>
-        <source
-          src={episodeDetails?.episodeUrl}
-          type="{episodeDetails?.contentType}/{episodeDetails?.fileExtension}"
-        />
-      </audio>
-    {:else}
-      <div class="loading">Loading...</div>
-    {/if}
+  <div class="card shadow">
+    <h1 class="episode-detail-title">{podcastDetails?.title}</h1>
+    <p class="episode-detail-description">
+      {@html episodeDetails?.description}
+    </p>
+    <audio class="audio" controls>
+      <source
+        src={episodeDetails?.episodeUrl}
+        type="{episodeDetails?.contentType}/{episodeDetails?.fileExtension}"
+      />
+    </audio>
   </div>
 </LeftBarLayout>
 
@@ -56,9 +51,5 @@
 
   .audio {
     width: 100%;
-  }
-
-  .loading {
-    text-align: center;
   }
 </style>
