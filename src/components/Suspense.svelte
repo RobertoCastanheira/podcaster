@@ -10,7 +10,7 @@
 {:else if $hasError}
   <div class="error">
     <p>Something went wrong. Please try again later.</p>
-    <p><Link to="/">Home</Link></p>
+    <p><Link to="/" class="error-home-link">Home</Link></p>
   </div>
 {:else}
   <slot />
